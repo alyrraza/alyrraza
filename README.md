@@ -1,114 +1,84 @@
-# 👋 Hi, I'm Ali Raza
+# Ali Raza — AI/ML Engineer
 
-🎓 **BSc Computer Science (2022–2026)** — FAST-NUCES  
-📊 **Data Analyst @ TAKMIL**  
-🤖 **AI/ML Engineer** — Medical Imaging · Vision-Language Models · AI Agents  
-
----
-
-## 🔬 Research Focus
-
-I work on **multimodal AI systems for healthcare**, combining **medical imaging + clinical text** to build models that are **clinically useful, explainable, and reliable**.
+BSc Computer Science · FAST-NUCES Faisalabad · 2026  
+Freelance ML Engineer since 2023 · International clients  
+Research paper under review · CIS-2025
 
 ---
 
-## 🧠 Research Work
+## What I build
 
-- **RadGuard (Final Year Thesis, 2026)**  
-  Multimodal VLM system for detecting hallucinations and errors in radiology reports  
-
-- **CIED Segmentation (Under Review — CIS-2025)**  
-  Automated detection & segmentation of cardiac devices using TransU-Net  
-
-- **NIH ChestX-ray14**  
-  Multi-label classification with GradCAM-based explainability  
+Production machine learning systems — from raw data through training, 
+deployment, and monitoring in real environments. Computer vision, LLMs, 
+RAG pipelines, agentic workflows, and full MLOps infrastructure.
 
 ---
 
-## 💼 Experience
+## Projects
 
-### 📊 Data Analyst — TAKMIL *(2023 – Present)*
-- Cleaned and analyzed large datasets (100K+ rows) using **Pandas, SQL**
-- Performed **EDA** to identify trends, anomalies, and insights  
-- Built **Power BI dashboards** for stakeholders  
-- Improved data workflows and efficiency  
+### RadGuard · Final Year Thesis · 2025–2026
+Multimodal deep learning system detecting 4 error types in AI-generated 
+chest X-ray reports. BioViL-T + CXR-BERT + Bidirectional Cross-Attention. 
+74,060 MIMIC-CXR samples · 14 conditions · Val F1 = 0.66  
+Deployed on AWS EC2 with Docker · Kubernetes · Kubeflow retraining · 
+Prometheus/Grafana monitoring · A/B shadow testing · FAISS RAG chatbot  
+Novel ELRRS reliability metric proposed.
 
----
+### RetailSense AI · 2025
+Production demand forecasting for a 54-store Ecuador grocery chain.  
+LightGBM vs XGBoost vs ARIMA across 33 product categories.  
+LightGBM: RMSE 336 · MAPE 8.78% · 55% over baseline · p = 0.0036  
+21 MLflow runs · SHAP explainability · KS-test drift monitoring  
+Docker Compose + Kubernetes on AWS EC2 · React + FastAPI + Nginx  
+MLflow on MinIO + PostgreSQL
 
-### 🤖 Freelance AI Engineer
-- Built and deployed **computer vision + NLP systems**  
-- Designed **FastAPI-based inference APIs** with GPU deployment (Vast.ai)  
-- Delivered **real-world AI solutions** across classification, detection, and multimodal tasks  
+### CV Interview Coach · AI Multi-Agent System · 2025
+3-agent LangGraph pipeline with MCP Supervisor orchestrator.  
+CV/JD analyzer · RAG question generator · real-time voice interview agent.  
+LlamaIndex + ChromaDB RAG · LiveKit WebRTC + Whisper STT + Coqui TTS  
+LLM-based answer scoring · self-healing retry loops · Pydantic v2 validators
 
----
+### CIED Segmentation · Under Review CIS-2025
+Novel TransU-Net combining transformer attention + U-Net skip connections  
+for automated pacemaker/ICD detection in chest X-rays.  
+Fully automatic localization-to-classification pipeline.
 
-## 🚀 Projects (Selected)
+### Roman Urdu Sentiment Analysis · 2024
+IndicBERT fine-tuned on scraped Instagram data.  
+MLflow · Docker · FastAPI · Streamlit · live deployment.
 
-> Full implementations available on my GitHub
-
-- **AI-Powered SRS Generator (Agent-Based)**  
-- **AllVoiceLab (Voice Cloning + AI Audio System)**  
-- **Document Analyzer (RAG-based System)**  
-- **Voice AI Lead Generation Agent**  
-- **AI Asset Depreciation Detection (YOLO-based)**  
-- **Review Analysis using AI Agents**  
-- **COVID-19 SQL Data Analysis**  
-
----
-
-## 🛠️ Tech Stack
-
-### 🔹 AI / ML
-`PyTorch` · `Transformers` · `HuggingFace` · `LangChain`  
-`LLMs` · `RAG Pipelines` · `Multimodal Models`  
-`YOLO` · `ViT` · `U-Net` · `SAM` · `DINO`  
-
-### 🔹 Data & Analytics
-`Pandas` · `SQL` · `Power BI` · `Scikit-learn`  
-`Web Scraping` · `EDA`  
-
-### 🔹 Backend & Systems
-`FastAPI` · `Flask` · `REST APIs` · `Node.js` · `Express.js`  
-`Async Webhooks` · `MCP` · `n8n`  
-
-### 🔹 Voice & Agents
-`LiveKit (STT/TTS)` · `Gemini API` · `OpenAI API`  
-
-### 🔹 Databases
-`PostgreSQL` · `MongoDB`  
-`FAISS` · `Pinecone` · `Chroma`  
-
-### 🔹 Deployment
-`Vast.ai` · `SSH` · `Vercel`  
-
-### 🔹 Frontend
-`React.js` · `Streamlit` · `HTML` · `CSS`  
+### YOLOv8 Asset Depreciation Detection · Freelance
+Inference-optimized FastAPI backend · Docker · Vast.ai GPU · React/Vercel.
 
 ---
 
-## 🏆 Activities & Certifications
+## Stack
 
-- Co-Head Hackathon — ACM Society (Daira 2025)  
-- Participant — Data Xcelerate Hackathon (Daira 2025)  
-- Management Team Member — Daira 2024  
-- TAKMIL Data Science Internship Certificate (2024)  
+**ML/DL:** PyTorch · HuggingFace Transformers · Scikit-learn · XGBoost · 
+LightGBM · LoRA · QLoRA · PEFT · YOLOv8 · TransU-Net · BioViL-T · 
+GradCAM · CBAM · OpenCV
+
+**LLMs/RAG/Agents:** LangChain · LangGraph · LlamaIndex · FAISS · 
+Pinecone · ChromaDB · OpenAI API · Gemini API · Anthropic API · 
+prompt engineering · embeddings · MCP servers
+
+**MLOps/Deployment:** MLflow · Docker · Kubernetes · Kubeflow · 
+Prometheus · Grafana · FastAPI · GitHub Actions · AWS EC2 · 
+Evidently AI · CI/CD
+
+**Languages:** Python · C++ · JavaScript · SQL
 
 ---
 
-## 🌐 Connect With Me
+## Research
 
-- 🔗 LinkedIn: https://linkedin.com/in/ali-raza-0a1282281  
-- 💻 GitHub: https://github.com/alyrraza  
-- 📧 Email: mirzaalirazafsd@gmail.com  
-- 📍 Faisalabad, Pakistan  
+Ali Raza et al. "Segmentation & Classification of CIEDs in Chest X-rays"  
+CIS-2025 · Under Review
 
 ---
 
-## 🚀 About Me
+## Connect
 
-I build **production-ready AI systems** that bridge:
-- Vision + Language  
-- Research + Real-world deployment  
-- Models + Usable products  
-
-Focused on making AI **practical, interpretable, and impactful** — especially in healthcare.
+[LinkedIn](https://linkedin.com/in/ali-raza-0a1282281) · 
+[Kaggle](https://kaggle.com/f223399mirzaaliraza) · 
+mirzaalirazafsd@gmail.com · Faisalabad, Pakistan
