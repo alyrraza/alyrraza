@@ -24,7 +24,7 @@ Deployed on AWS EC2 with Docker · Kubernetes · Kubeflow retraining ·
 Prometheus/Grafana monitoring · A/B shadow testing · FAISS RAG chatbot  
 Novel ELRRS reliability metric proposed.
 
-### RetailSense AI · 2025
+### RetailSense AI · 2026
 Production demand forecasting for a 54-store Ecuador grocery chain.  
 LightGBM vs XGBoost vs ARIMA across 33 product categories.  
 LightGBM: RMSE 336 · MAPE 8.78% · 55% over baseline · p = 0.0036  
@@ -32,7 +32,7 @@ LightGBM: RMSE 336 · MAPE 8.78% · 55% over baseline · p = 0.0036
 Docker Compose + Kubernetes on AWS EC2 · React + FastAPI + Nginx  
 MLflow on MinIO + PostgreSQL
 
-### CV Interview Coach · AI Multi-Agent System · 2025
+### CV Interview Coach · AI Multi-Agent System · 2026
 3-agent LangGraph pipeline with MCP Supervisor orchestrator.  
 CV/JD analyzer · RAG question generator · real-time voice interview agent.  
 LlamaIndex + ChromaDB RAG · LiveKit WebRTC + Whisper STT + Coqui TTS  
