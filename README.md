@@ -1,5 +1,7 @@
 # Ali Raza — AI/ML Engineer
 
+Portfolio: [alyrraza.vercel.app](https://alyrraza.vercel.app/)
+
 BSc Computer Science · FAST-NUCES Faisalabad · 2026
 Freelance ML Engineer since 2023 · International clients
 Research paper accepted · ACR 2026 · Second paper under review · CIS-2025
@@ -63,4 +65,4 @@ CIS-2025 · Under Review
 
 ## Connect
 
-[LinkedIn](https://www.linkedin.com/in/ali-raza-0a1282281/) · [Kaggle](https://www.kaggle.com/f223399mirzaaliraza) · [HuggingFace](https://huggingface.co/alyrraza) · mirzaalirazafsd@gmail.com · Faisalabad, Pakistan
+[Portfolio](https://alyrraza.vercel.app/) · [LinkedIn](https://www.linkedin.com/in/ali-raza-0a1282281/) · [Kaggle](https://www.kaggle.com/f223399mirzaaliraza) · [HuggingFace](https://huggingface.co/alyrraza) · mirzaalirazafsd@gmail.com · Faisalabad, Pakistan
