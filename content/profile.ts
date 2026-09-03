@@ -41,8 +41,10 @@ export const profile: Profile = {
       status: "Accepted",
     },
     {
-      citation: "Ali Raza et al. “Segmentation and Classification of CIEDs in Chest X-rays.”",
-      venue: "CIS-2025 Conference",
+      citation:
+        "Raza A. “Inter-Lobe Boundary Channels and Localised Folding Repair for Expiration to Inspiration Lung CT Registration.”",
+      venue:
+        "Learn2Reg 2026 Challenge, MICCAI 2026, Strasbourg. Top-4 finalist (validation phase); invited oral presentation and poster.",
       status: "Under Review",
     },
   ],
