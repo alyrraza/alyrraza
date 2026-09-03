@@ -316,23 +316,53 @@ export const projects: Project[] = [
   },
   {
     slug: "miccai-challenge",
-    title: "MICCAI Challenge (Coming Soon)",
-    tagline: "",
+    title: "Learn2Breath (Learn2Reg 2026 Challenge)",
+    tagline: "A lung CT registration pipeline with zero trained registration weights that placed top-4 of 96 teams at MICCAI 2026.",
     descriptions: {
-      research: "",
-      engineering: "",
+      research:
+        "An entry to Learn2Breath, Task 2 of the Learn2Reg 2026 challenge at MICCAI 2026 (Strasbourg, France): deformable registration of inspiration and expiration lung CT pairs. The pipeline is entirely optimisation-based, no registration weights are trained at all, the only learned component is off-the-shelf TotalSegmentator lung lobe segmentation, whose lobe masks and derived inter-lobe fissure boundaries feed a MIND-SSC feature stack into ConvexAdam (discrete correlation, coupled convex optimisation, then Adam instance optimisation). On the 10 validation pairs the container reached a Lobar DSC of 0.973 and drove folding down to 0.0035% NDV, below the challenge's 0.005% practical-equivalence threshold on all 10 subjects, up from a raw 1.33% before a targeted, fold-only Jacobian repair step. That validation-phase result placed the submission (username alyrraza) among the top 4 of 96 teams and 1,137 submissions, at rank #3 at the time of the organizers' invitation email and rank #4 as of the latest leaderboard snapshot, separated from 3rd place by 0.00016 in combined score, earning an invitation to give an oral presentation and poster at the Learn2Reg 2026 event and to submit a full paper to the Journal of Medical Imaging's Special Section on Deformable Image Registration.",
+      engineering:
+        "The submission ships as a single Docker image with all TotalSegmentator weights baked in at build time and verified to run end to end with --network=none, no internet access at inference. A fixed ENTRYPOINT takes three positional arguments (fixed inspiration CT, moving expiration CT, output displacement path) and writes a channel-first float32 NIfTI displacement field on the fixed image's 1.5mm grid. The pipeline is fully deterministic, no random seeds are drawn anywhere, and is layered with fallbacks so it always exits cleanly with a correctly shaped output: if lung lobe segmentation fails or returns fewer than 3 of 5 lobes, it falls back to MIND-SSC-only registration with an HU-threshold-derived lung box, and if that raises for any reason it retries once more before writing a zero displacement field as a last resort. Available VRAM is checked before the discrete search so the search radius shrinks automatically rather than risking an out-of-memory crash. End to end runtime measured at 69.3 +/- 1.3s per pair on a Tesla T4 (53.1s segmentation, 7.5s registration, 1.4s folding repair), comfortably inside the evaluation hardware's budget.",
     },
-    lenses: ["research"],
-    tags: ["Medical Imaging", "Competition"],
-    status: ["case-study"],
+    lenses: ["research", "engineering"],
+    tags: [SWE_TAG, "Medical Imaging", "Image Registration", "Computer Vision", "PyTorch", "Docker"],
+    status: ["screenshots"],
     links: {},
-    media: [],
-    details: {
-      research: [],
-      engineering: [],
+    thumbnail: {
+      type: "image",
+      src: "/screenshots/miccai-challenge/thumbnail.png",
+      caption: "Learn2Reg 2026: Medical Image Registration Challenge at MICCAI 2026, Strasbourg",
     },
-    results: [],
-    featured: false,
+    media: [
+      { type: "image", src: "/screenshots/miccai-challenge/thumbnail.png", caption: "Learn2Reg 2026: Medical Image Registration Challenge at MICCAI 2026, Strasbourg" },
+      { type: "image", src: "/screenshots/miccai-challenge/validation-leaderboard.jpg", caption: "Learn2Breath validation leaderboard: alyrraza ranked #4 of 96 teams (combined score 0.99151, Lobar DSC 0.99264, folding 0.11326%)" },
+      { type: "image", src: "/screenshots/miccai-challenge/invitation-email.jpg", caption: "Organizer invitation to present: top-4 finish earns an oral presentation and poster slot at Learn2Reg 2026" },
+    ],
+    details: {
+      research: [
+        "Built an entirely optimisation-based registration pipeline for the Learn2Breath (lung CT inspiration/expiration) task, no registration weights are trained, the only learned component is off-the-shelf TotalSegmentator lung lobe segmentation.",
+        "Fed a multi-channel feature stack, MIND-SSC descriptors (r=1, d=2), inverse-frequency-weighted one-hot lobe labels, and derived inter-lobe fissure boundary channels blurred with a 5x5x5 average pool, into ConvexAdam: discrete correlation (30mm capture range) into coupled convex optimisation into inverse consistency into 120-iteration Adam instance optimisation with diffusion regularisation.",
+        "Designed a folding repair step that computes a full-resolution Jacobian and locally smooths only voxels inside a small dilation of the folded set, iterating until %NDV drops below the challenge's 0.005% threshold while leaving non-folded regions untouched (mean DSC cost of only -0.00025).",
+        "Reached Lobar DSC 0.97276 +/- 0.00394 and %NDV 0.00350 +/- 0.00070 (max 0.00395) on the 10 validation pairs, below the practical-equivalence threshold on every subject, down from a raw 1.33% +/- 1.48% before folding repair.",
+        "Reported the method's determinism honestly: no random seeds are drawn anywhere, but TotalSegmentator's cuDNN kernels have a non-guaranteed floating-point summation order, so segmentation output can vary by a small number of voxels between runs, a caveat stated rather than hidden.",
+        "Placed top-4 of 96 teams and 1,137 submissions on the validation-phase leaderboard, invited to give an oral presentation and poster at the Learn2Reg 2026 event at MICCAI 2026 (Strasbourg, October 1) and to submit a full paper to the Journal of Medical Imaging's Special Section on Deformable Image Registration.",
+      ],
+      engineering: [
+        "Packaged the full pipeline into a single Docker image with all TotalSegmentator weights baked in at build time, verified to run end to end with --network=none for the evaluation environment's no-internet constraint.",
+        "Defined a fixed three-argument ENTRYPOINT contract (fixed inspiration CT, moving expiration CT, output path) writing a channel-first float32 NIfTI displacement field on the fixed image's grid at 1.5mm spacing.",
+        "Layered the pipeline with fallbacks so it always exits cleanly with a valid, correctly shaped output: MIND-SSC-only registration with an HU-threshold lung box if segmentation fails or returns fewer than 3 of 5 lobes, one retry if that also raises, and a zero displacement field as a last resort.",
+        "Added a pre-flight VRAM check that shrinks the discrete search radius automatically when less than 10GB is free, so the container can't fail with an out-of-memory error on constrained hardware.",
+        "Kept the full pipeline deterministic end to end, with the Adam instance optimisation initialised from the deterministic coupled-convex solution and run for a fixed iteration count, and bounded the folding-repair stage with a 30s wall-clock cap.",
+        "Measured 69.3 +/- 1.3s end-to-end runtime per pair on a Tesla T4 (53.1s segmentation, 7.5s registration, 1.4s folding repair), with a 72.3s worst case across the 10 validation pairs.",
+      ],
+    },
+    results: [
+      { label: "Validation rank", value: "#4 of 96 teams" },
+      { label: "Lobar DSC (5 lobes)", value: "0.973" },
+      { label: "%NDV (post-repair)", value: "0.0035%" },
+      { label: "Runtime per pair (T4)", value: "69.3s" },
+    ],
+    featured: true,
     order: 7,
   },
 
