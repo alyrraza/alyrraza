@@ -60,8 +60,8 @@ MLflow · Docker · FastAPI · Gradio · HuggingFace Spaces
 Khan MM, Raza A, et al. "Generalizable Detection of Cardiac Implantable Electronic Devices Using a Hybrid Transformer and CNN Framework"
 ACR 2026 · Abstract Accepted
 
-Ali Raza et al. "Segmentation and Classification of CIEDs in Chest X-rays"
-CIS-2025 · Under Review
+Ali Raza. "Learn2Breath: An Optimisation-Based Registration Pipeline for Inspiration-Expiration Lung CT"
+Learn2Reg 2026 Challenge, MICCAI 2026 · Top-4 of 96 teams · Oral Presentation & Poster Invite
 
 ## Connect
 
