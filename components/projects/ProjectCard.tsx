@@ -26,7 +26,11 @@ export function ProjectCard({ project }: { project: Project }) {
       >
         <GlowCard className="flex h-full flex-col overflow-hidden">
           <div className="relative aspect-[16/10] w-full">
-            <ProjectMediaBlock media={project.thumbnail} className="h-full w-full" />
+            <ProjectMediaBlock
+              media={project.thumbnail}
+              className="h-full w-full"
+              fit={project.thumbnail?.fit ?? "cover"}
+            />
           </div>
 
           <div className="flex flex-1 flex-col gap-3 p-6">
@@ -41,7 +45,13 @@ export function ProjectCard({ project }: { project: Project }) {
               />
             </div>
 
-            <p className="text-sm text-text-secondary">{description}</p>
+            <div>
+              <p className="line-clamp-3 text-sm text-text-secondary">{description}</p>
+              <span className="mt-1.5 inline-flex items-center gap-1 text-xs font-medium text-accent">
+                Read more
+                <ArrowUpRight size={12} aria-hidden />
+              </span>
+            </div>
 
             <div className="mt-auto flex flex-wrap gap-2 pt-3">
               {project.tags.slice(0, 4).map((tag) => (

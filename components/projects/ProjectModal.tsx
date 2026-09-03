@@ -46,7 +46,11 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
             </button>
 
             <div className="relative mb-5 aspect-[16/9] w-full overflow-hidden rounded-xl">
-              <ProjectMediaBlock media={project.thumbnail} className="h-full w-full" />
+              <ProjectMediaBlock
+                media={project.thumbnail}
+                className="h-full w-full"
+                fit={project.thumbnail?.fit ?? "cover"}
+              />
             </div>
 
             <h3 id="project-modal-title" className="text-xl font-bold text-text-primary">

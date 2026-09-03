@@ -119,7 +119,7 @@ export default async function ProjectPage({
               {project.media.map((media, i) => (
                 <div
                   key={i}
-                  className="relative aspect-video w-[85%] shrink-0 snap-center overflow-hidden rounded-2xl border border-border bg-bg-tertiary sm:w-[70%]"
+                  className="relative aspect-video w-[85%] shrink-0 snap-center overflow-hidden rounded-2xl bg-bg-tertiary sm:w-[70%]"
                 >
                   <ProjectMediaBlock media={media} className="h-full w-full" fit="contain" />
                 </div>

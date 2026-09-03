@@ -11,6 +11,7 @@ export interface ProjectMedia {
   type: "video" | "image" | "diagram";
   src: string;
   caption?: string;
+  fit?: "cover" | "contain";
 }
 
 export interface Project {
