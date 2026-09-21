@@ -821,8 +821,62 @@ export const projects: Project[] = [
     featured: false,
     order: 16,
   },
+  {
+    slug: "pit-scorecard",
+    title: "PIT-Scorecard: Point-in-Time Credit Risk Scoring System",
+    tagline: "0.30 AUC of a standard credit-scorecard model turned out to be leakage, not signal.",
+    descriptions: {
+      research:
+        "PIT-Scorecard measures how much of a typical published credit-scorecard AUC is leakage rather than signal. Most public Lending Club scorecards train on post-origination columns and split train/test randomly, both of which silently inflate reported AUC. Classifying all 151 raw columns as knowable-at-origination or not and training on a strict 2007-2015 train / 2016-2018 out-of-time test split (2.26M loans), the same LightGBM architecture scores 0.9999 AUC with 38 leakage columns restored versus 0.6993 honestly, a gap traced almost entirely to one column, recoveries. The honest WOE/IV scorecard (600-point scale) reaches AUC 0.6922, and a 5-fold time-based check confirms LightGBM's small edge over it is real and consistent, never flipping sign.",
+      engineering:
+        "Wraps the honest scorecard in a full risk-analytics and serving layer: a DuckDB feature mart standing in for a production warehouse, PSI/CSI drift monitoring with a documented retrain trigger, and a cost-sensitive 3-tier approve/review/decline policy derived from the dataset's own historical unit economics (3.32:1 cost ratio), not an assumed rule of thumb. A FastAPI service returns a probability, points score, decision tier, and plain-English reason codes per applicant, backing both a Swagger /docs page and a Gradio demo that call the identical scoring function. Packaged in Docker and deployed live to a Hugging Face Space, surviving five distinct production issues along the way, including a cross-Python-version scikit-learn pickle break.",
+    },
+    lenses: ["research", "engineering"],
+    tags: [SWE_TAG, "Credit Risk", "Tabular ML", "LightGBM", "FastAPI", "DuckDB", "Docker"],
+    status: ["live", "screenshots"],
+    links: {
+      github: "https://github.com/alyrraza/pit-scorecard",
+      liveDemo: "https://huggingface.co/spaces/alyrraza/pit-scorecard",
+    },
+    thumbnail: {
+      type: "image",
+      src: "/screenshots/pit-scorecard/thumbnail.png",
+      caption: "PIT-Scorecard overview poster",
+    },
+    media: [
+      { type: "diagram", src: "/screenshots/pit-scorecard/leakage-gap-roc.png", caption: "The leakage gap: honest scorecard and LightGBM both land near 0.69-0.70 AUC; restoring 38 leakage columns fakes a 0.9999 AUC" },
+      { type: "diagram", src: "/screenshots/pit-scorecard/risk-band-separation.png", caption: "Risk-band separation: Band 1 is 93.6% Fully Paid, Band 10 is 42.8% Charged Off, with the observed bad rate overlaid" },
+      { type: "diagram", src: "/screenshots/pit-scorecard/psi-csi-drift.png", caption: "PSI/CSI drift monitoring: score-level PSI stays under the 0.25 retrain trigger, while int_rate and fico_range_low drift individually in 2018" },
+    ],
+    details: {
+      research: [
+        "Classified all 151 raw Lending Club columns as knowable-at-origination (104) or post-origination leakage (38), then measured the leakage's exact size rather than just avoiding it by instinct.",
+        "Trained the same LightGBM architecture twice on an identical out-of-time split: 0.6993 AUC on origination-only features, 0.9999 AUC with the 38 leakage columns restored, a +0.3006 AUC gap traced to a single column, recoveries, which is only nonzero once a loan is already in collections.",
+        "Split 2.26M loans by time, not randomly: train through 2015 Q4, a 2-quarter embargo, test on 2016 Q3 through 2018 Q4, with the per-vintage resolution rate falling from 88.5% to 4.6% toward the most recent test quarters since those loans haven't had time to reach a final outcome.",
+        "Built a 600-point WOE/IV logistic scorecard (PDO/odds/base-score convention) reaching AUC 0.6922 / Gini 0.3844 / KS 0.2774 out of time, and checked its LightGBM challenger's +0.0071 AUC edge across 5 separate time folds: consistently ahead, never flipping sign, growing in later periods rather than shrinking to noise.",
+        "Reported calibration honestly rather than stopping at AUC: every risk band ranks correctly, but sits above the diagonal on a reliability plot, since training's 18.6% bad rate is lower than test's actual 26.4%, meaning the model ranks risk correctly but would need recalibration before its raw probabilities could be trusted.",
+        "Documented a single-snapshot dataset's real limitation instead of hiding it: without monthly performance panels, the vintage curve substitutes one point per origination quarter (mature 60+ month vintages average 14.3% cumulative bad rate) rather than a traditional multi-year curve.",
+      ],
+      engineering: [
+        "Built a cost-sensitive 3-tier approve/review/decline policy from the dataset's own historical profit-per-good-loan vs. loss-per-bad-loan numbers (3.32:1 FN:FP cost ratio), not an assumed industry rule of thumb.",
+        "Set up PSI/CSI drift monitoring with a documented 0.25 retrain trigger; score-level PSI stayed under 0.05 throughout the 2016-2018 test window, while per-feature CSI correctly caught int_rate and fico_range_low drifting in 2018, consistent with real Lending Club policy changes.",
+        "Served the scorecard through a FastAPI /score endpoint returning a probability, points score, decision tier, and plain-English reason codes per applicant, with a Gradio demo calling the exact same scoring function so the API and the UI can never disagree.",
+        "Built a DuckDB SQL feature mart as a stand-in for a production warehouse, and a 54-check pytest suite spanning all four pipeline phases plus exact-DPI figure regression tests.",
+        "Debugged five distinct production issues on the live Hugging Face Space: a Gradio/Uvicorn port race, an SSR Node.js proxy crash, a ZeroGPU hardware requirement surfaced only in a deep API error field, a cross-Python-version scikit-learn pickle break requiring a full retrain, and a missing Swagger /docs route, each verified fixed against the live URL, not just localhost.",
+        "Packaged the pipeline for Docker self-hosting while adapting the actual deployment to Hugging Face's Gradio-SDK-on-ZeroGPU tier after a pricing change made the originally planned Docker Space tier paid-only mid-project.",
+      ],
+    },
+    results: [
+      { label: "Leakage AUC inflation", value: "+0.30" },
+      { label: "Scorecard OOT AUC", value: "0.6922" },
+      { label: "Cost ratio (FN:FP)", value: "3.32:1" },
+      { label: "Loans analyzed", value: "2.26M" },
+    ],
+    featured: true,
+    order: 17,
+  },
 
-  // Note: RadGuard, E2E-VarNet, ProgressGAN-CXR, InferBench appear in BOTH lenses.
-  // CostSegBNB (order 0) is the flagship pitch project, no public repo yet (ongoing
-  // freelance, private codebase).
+  // Note: RadGuard, E2E-VarNet, ProgressGAN-CXR, InferBench, PIT-Scorecard appear in
+  // BOTH lenses. CostSegBNB (order 0) is the flagship pitch project, no public repo
+  // yet (ongoing freelance, private codebase).
 ];

@@ -59,7 +59,7 @@ export function Hero() {
       />
 
       <FloatCard icon={Briefcase} value="3+ Years" label="Production ML Engineering" side="left" />
-      <FloatCard icon={Layers} value="17 Projects" label="Shipped & Documented" side="right" delay={0.15} />
+      <FloatCard icon={Layers} value="18 Projects" label="Shipped & Documented" side="right" delay={0.15} />
 
       <p className="mb-4 font-mono text-sm uppercase tracking-[0.3em] text-accent">
         {profile.monogram} / Portfolio
