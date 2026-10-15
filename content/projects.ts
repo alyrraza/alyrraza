@@ -875,8 +875,60 @@ export const projects: Project[] = [
     featured: true,
     order: 17,
   },
+  {
+    slug: "docdesk",
+    title: "DocDesk: Healthcare RAG with an Evaluation Harness",
+    tagline: "A medical RAG service that cites its sources, refuses what it should not answer, and tells me honestly whether a change actually helped.",
+    descriptions: {
+      research:
+        "DocDesk treats its own evaluation harness as something to validate before trusting it: an independent review found 8 major defects in the harness, including a judge failure counted as a pass, all fixed before any experiment was compared against a frozen baseline. Seven experiments were run against that baseline on a dev split; one real candidate change turned up, a higher per document chunk cap, and it was checked once more on a held out test split with a paired bootstrap interval, which showed the gain was not statistically confirmed rather than assuming the dev set result would hold.",
+      engineering:
+        "DocDesk is a medical RAG service that is containerised and runs locally with Docker, built over 298 public MedlinePlus and DailyMed documents (5,919 chunks) using FastAPI, PostgreSQL plus pgvector, Redis, and Celery. Every answer carries citations, and the service has two honest failure modes: it abstains when the retrieved sources do not cover a question, and it refuses outright, no model call, when a question asks for a dose or a diagnosis. Around it sits an evaluation harness: 75 verified questions, LLM judges for faithfulness and correctness, a deterministic failure labeler, and paired bootstrap intervals, run against a frozen baseline so a change only counts once it is measured honestly. CI on GitHub Actions gates every image before it reaches GHCR.",
+    },
+    lenses: ["engineering"],
+    tags: [SWE_TAG, "RAG", "LLM Evaluation", "LLM-as-Judge", "FastAPI", "PostgreSQL", "pgvector", "Redis", "Celery", "Docker", "GitHub Actions", "Groq", "ONNX"],
+    status: ["screenshots"],
+    links: {
+      github: "https://github.com/alyrraza/docdesk-healthcare-rag-evals",
+    },
+    thumbnail: {
+      type: "image",
+      src: "/screenshots/docdesk/thumbnail.png",
+      caption: "DocDesk overview poster: citations, abstain and refuse paths, evaluation harness results",
+    },
+    media: [
+      { type: "diagram", src: "/screenshots/docdesk/architecture.png", caption: "System architecture: ingest, query, and the evaluation harness, including the refuse and abstain paths" },
+      { type: "image", src: "/screenshots/docdesk/ui-answered.png", caption: "Cited answer with the source chunk" },
+      { type: "image", src: "/screenshots/docdesk/ui-abstained.png", caption: "The sources do not cover this, so it says so" },
+      { type: "image", src: "/screenshots/docdesk/ui-refused.png", caption: "Dose questions are refused, no model call" },
+    ],
+    details: {
+      research: [
+        "Treated the evaluation harness itself as something to validate, not just the model: an independent review of the harness found 8 major defects, including a judge failure counted as a pass, all fixed before reporting any comparison between configurations.",
+        "Ran a frozen baseline against 7 experiments, then confirmed the one change that looked promising on a held out test split run exactly once per arm, using paired bootstrap intervals so a lucky split could not be mistaken for a real gain.",
+      ],
+      engineering: [
+        "Built a FastAPI service with Pydantic v2 models, SQLAlchemy 2 and Alembic migrations, PostgreSQL with pgvector (HNSW index) plus full text search, Redis, and Celery for background work, backed by ONNX MiniLM embeddings and argon2/JWT auth.",
+        "Added an abstain path for questions the retrieved sources do not cover and a refuse path for dose or diagnosis questions that never calls the model, keeping the service honest about what it does and does not know.",
+        "Built an LLM layer with a content hash response cache, a rolling token budget guard, and a rate pacer sitting in front of the real client (generator openai/gpt-oss-120b, judge qwen/qwen3.8-27b, both via Groq); a complete 44 item re-run was served entirely from the cache, 91 model calls, 0 tokens billed.",
+        "Hash-pinned every prompt, judge prompt, and config file; the evaluation run refuses to start if the corpus fingerprint or a prompt hash has changed since the baseline was frozen.",
+        "Ran CI on GitHub Actions: tests, a retrieval regression gate, and a Docker image build with a smoke test, pushing the image to GHCR only after all three pass.",
+        "An independent review of the evaluation harness itself found 8 major defects, including a run where a judge failure was silently counted as a pass, all fixed before any configuration comparison was reported.",
+        "Raised the per document chunk cap from 2 to 4 for a dev set gain from 15 of 30 to 19 of 30, then ran it once on the held out test split (13 of 20 to 15 of 20) and reported the paired interval honestly: it crosses zero, so the gain is not statistically confirmed. The other 6 experiments tried, hybrid search, a deeper candidate pool, dropping title only chunks, query splitting, and two abstain thresholds, showed no clear gain, and one cost 2 answers.",
+      ],
+    },
+    results: [
+      { label: "Dev set pass rate", value: "15/30 to 19/30" },
+      { label: "Held out test pass rate", value: "13/20 to 15/20" },
+      { label: "Automated tests", value: "1,268 passing" },
+      { label: "Cache replay cost", value: "0 tokens billed" },
+    ],
+    featured: false,
+    order: 18,
+  },
 
   // Note: RadGuard, E2E-VarNet, ProgressGAN-CXR, InferBench, PIT-Scorecard appear in
   // BOTH lenses. CostSegBNB (order 0) is the flagship pitch project, no public repo
-  // yet (ongoing freelance, private codebase).
+  // yet (ongoing freelance, private codebase). DocDesk is engineering only, no live
+  // demo, container image on GHCR plus a local Docker Compose demo.
 ];
