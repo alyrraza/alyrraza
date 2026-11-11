@@ -176,18 +176,19 @@ export const projects: Project[] = [
   {
     slug: "cied-detection-acr2026",
     title: "CIED Detection (ACR 2026)",
-    tagline: "A hybrid transformer and CNN pipeline for detecting and classifying cardiac implantable devices, accepted at ACR 2026.",
+    tagline: "A hybrid DINOv3 and DenseNet pipeline that detects and classifies cardiac implantable devices from smartphone photos of chest radiographs, accepted at ACR 2026.",
     descriptions: {
       research:
-        "Generalizable Detection of Cardiac Implantable Electronic Devices Using a Hybrid Transformer and CNN Framework, co-authored with Khan MM, Ahmad F, Mansoor A, and Manzoor M, with the abstract accepted as an ePoster at the ACR 2026 Annual Meeting (American College of Radiology, Washington DC, May 2026). A three-stage pipeline detects and classifies pacemakers, ICDs, CRT-D, and CRT-P devices on chest X-rays: Stage 1 (MultiScaleDinoSeg) segments the device region using a frozen, self-supervised DINOv3 ViT-B/16 backbone with skip connections from four transformer blocks, replacing TransU-Net's ResNet-50 encoder. Stage 2a classifies manufacturer through a dual-branch architecture fusing local patch-token and global CLS-token features, and Stage 2b classifies device model through a hierarchical classifier conditioned on the predicted manufacturer. Full implementation code for all three stages is publicly available on GitHub.",
+        "Generalizable detection of cardiac implantable devices using a hybrid transformer and convolutional neural network framework, co-authored with Khan MM, Ahmad F, and Mansoor A, with the abstract accepted for the ACR 2026 Annual Meeting (American College of Radiology, Washington DC, May 2026). The pipeline detects and classifies pacemakers, ICDs, CRT-D, and CRT-P devices directly from smartphone photos of chest radiographs, a credentialed-access PhysioNet dataset of 1,396 photographed radiographs, aimed at low-resource and out-of-hospital settings where only a phone photo may be available. A three-stage pipeline built on a frozen, self-supervised DINOv3 ViT-B/16 backbone fused with DenseNet-121 features segments the device region, classifies manufacturer through a dual-branch architecture fusing local patch-token and global CLS-token features, and classifies device model through a hierarchical classifier conditioned on the predicted manufacturer. The approach reaches a mean segmentation Dice of 0.9386, 93.81% manufacturer classification accuracy, and 84.24% device-model accuracy with hierarchical reasoning (up from 75.82% without it), at significantly lower compute than existing models.",
       engineering:
-        "A three-stage inference pipeline built around a shared frozen DINOv3 ViT-B/16 backbone: a multi-scale segmentation decoder, a dual-branch manufacturer classifier with adaptive MLP fusion, and a hierarchical model classifier conditioned on manufacturer via a learned embedding. Class imbalance across manufacturers and device types is handled with focal loss, weighted sampling, mixup, label smoothing, and per-manufacturer SMOTE. Code for the full pipeline is publicly available on GitHub.",
+        "A three-stage inference pipeline built around a shared frozen DINOv3 ViT-B/16 backbone fused with DenseNet-121 features: a multi-scale segmentation decoder, a dual-branch manufacturer classifier with adaptive MLP fusion, and a hierarchical model classifier conditioned on manufacturer via a learned embedding, all designed to run at significantly lower compute than existing models so the pipeline can realistically run in low-resource and out-of-hospital settings. Class imbalance across manufacturers and device types is handled with focal loss, weighted sampling, mixup, label smoothing, and per-manufacturer SMOTE. Code for the full pipeline is publicly available on GitHub.",
     },
     lenses: ["research"],
     tags: ["Medical Imaging", "Object Detection", "Computer Vision", "Vision Transformers"],
     status: ["paper", "screenshots"],
     links: {
       github: "https://github.com/alyrraza/cied-detection-acr2026",
+      paper: "https://e732fa66e3fe6db28bf3-86df353d44a6c65fafef6090f322fde2.ssl.cf1.rackcdn.com//3392642-1773940722.pdf",
     },
     thumbnail: {
       type: "image",
@@ -202,21 +203,28 @@ export const projects: Project[] = [
     ],
     details: {
       research: [
-        "Co-authored a three-stage detection and classification pipeline (Khan MM, Raza A, Ahmad F, Mansoor A, Manzoor M), accepted as an ePoster at the ACR 2026 Annual Meeting in Washington DC.",
-        "Designed MultiScaleDinoSeg, replacing TransU-Net's ResNet-50 encoder with a frozen, self-supervised DINOv3 ViT-B/16, pulling skip connections from four transformer blocks (3, 6, 9, 12) instead of convolutional feature maps.",
-        "Built a dual-branch manufacturer classifier fusing local patch-token features (DINOv3 CLS plus pooled patches, 1536d) with global full-image CLS features (512d) through adaptive MLP fusion, across five manufacturers (Abbott, Medtronic, Boston Scientific, Biotronik, St. Jude).",
-        "Built a hierarchical device-model classifier (Pacemaker, ICD, CRT-D, CRT-P) conditioned on the predicted manufacturer via a learned 64-dimensional embedding, fusing DenseNet-121 and DINOv3 features to reduce cross-manufacturer confusion.",
+        "Co-authored a three-stage detection and classification pipeline for cardiac implantable devices (Khan MM, Raza A, Ahmad F, Mansoor A), accepted as an abstract and poster at the ACR 2026 Annual Meeting in Washington DC.",
+        "Built the pipeline to work directly from smartphone photos of chest radiographs rather than clean digital X-rays, validated on a credentialed-access PhysioNet dataset of 1,396 photographed radiographs, targeting low-resource and out-of-hospital settings.",
+        "Designed a segmentation stage on a frozen, self-supervised DINOv3 ViT-B/16 backbone fused with DenseNet-121 features, reaching a mean Dice of 0.9386.",
+        "Built a dual-branch manufacturer classifier fusing local patch-token features (DINOv3 CLS plus pooled patches, 1536d) with global full-image CLS features (512d) through adaptive MLP fusion, across five manufacturers (Abbott, Medtronic, Boston Scientific, Biotronik, St. Jude), reaching 93.81% accuracy.",
+        "Built a hierarchical device-model classifier (Pacemaker, ICD, CRT-D, CRT-P) conditioned on the predicted manufacturer via a learned 64-dimensional embedding, lifting device-model accuracy from 75.82% to 84.24%.",
         "Addressed severe class imbalance across manufacturers and device types with focal loss, weighted random sampling, mixup, label smoothing, and per-manufacturer SMOTE in the hybrid feature space.",
         "Full implementation code for all three pipeline stages is publicly available on GitHub.",
       ],
       engineering: [
-        "Built a shared frozen DINOv3 ViT-B/16 backbone feeding three separate task heads: multi-scale segmentation, dual-branch manufacturer classification, and hierarchical model classification.",
+        "Built a shared frozen DINOv3 ViT-B/16 backbone fused with DenseNet-121 features, feeding three separate task heads: multi-scale segmentation, dual-branch manufacturer classification, and hierarchical model classification.",
         "Implemented adaptive MLP feature fusion across local and global branches, and a manufacturer-conditioned embedding to reduce cross-manufacturer confusion in the model classifier.",
         "Handled severe class imbalance with focal loss, weighted sampling, mixup, label smoothing, and per-manufacturer SMOTE.",
+        "Kept inference compute significantly lower than existing comparable pipelines, a deliberate design target given the low-resource and out-of-hospital settings this is aimed at.",
         "Full implementation code for all three pipeline stages is publicly available on GitHub.",
       ],
     },
-    results: [],
+    results: [
+      { label: "Mean Dice (segmentation)", value: "0.9386" },
+      { label: "Manufacturer accuracy", value: "93.81%" },
+      { label: "Model accuracy (hierarchical)", value: "84.24%" },
+      { label: "Photographed radiographs", value: "1,396" },
+    ],
     featured: false,
     order: 4,
   },
@@ -317,17 +325,19 @@ export const projects: Project[] = [
   {
     slug: "miccai-challenge",
     title: "Learn2Breath (Learn2Reg 2026 Challenge)",
-    tagline: "A lung CT registration pipeline with zero trained registration weights that placed top-4 of 96 teams at MICCAI 2026.",
+    tagline: "A training-free lung CT registration pipeline, accepted at Learn2Reg 2026 (MICCAI) with an invited oral presentation.",
     descriptions: {
       research:
-        "An entry to Learn2Breath, Task 2 of the Learn2Reg 2026 challenge at MICCAI 2026 (Strasbourg, France): deformable registration of inspiration and expiration lung CT pairs. The pipeline is entirely optimisation-based, no registration weights are trained at all, only a segmentation-derived feature stack feeding ConvexAdam, plus a targeted Jacobian-based folding repair. On the 10 validation pairs it reached a Lobar DSC of 0.973 and drove folding down to 0.0035% NDV, placing the submission (alyrraza) top-4 of 96 teams and earning an invitation to present at Learn2Reg 2026 and submit a full paper to the Journal of Medical Imaging.",
+        "An entry to Learn2Breath, Task 2 of the Learn2Reg 2026 challenge at MICCAI 2026 (Strasbourg, France): deformable registration of inspiration and expiration lung CT pairs. The pipeline is entirely optimisation-based, no registration weights are trained at all, only a segmentation-derived feature stack feeding ConvexAdam, plus a targeted Jacobian-based folding repair. On the 10 validation pairs it reached a Lobar DSC of 0.973 and drove folding down to 0.0035% NDV. The method was accepted at Learn2Reg 2026, with an invited oral presentation and poster at MICCAI 2026, and an invitation to submit a full paper to the SPIE Journal of Medical Imaging's special section on deformable image registration.",
       engineering:
         "Ships as a single, fully deterministic Docker image with all model weights baked in at build time, verified to run end to end with --network=none. A fixed three-argument entrypoint writes a channel-first NIfTI displacement field, and the pipeline degrades gracefully through several fallback tiers so it always exits cleanly with a valid output, even under segmentation failure or tight VRAM. End-to-end runtime measured at 69.3s per pair on a Tesla T4, comfortably inside the evaluation budget.",
     },
     lenses: ["research", "engineering"],
     tags: [SWE_TAG, "Medical Imaging", "Image Registration", "Computer Vision", "PyTorch", "Docker"],
     status: ["screenshots"],
-    links: {},
+    links: {
+      paper: "https://openreview.net/forum?id=nFNQaSDcO6",
+    },
     thumbnail: {
       type: "image",
       src: "/screenshots/miccai-challenge/thumbnail.png",
@@ -336,8 +346,7 @@ export const projects: Project[] = [
     },
     media: [
       { type: "image", src: "/screenshots/miccai-challenge/thumbnail.png", caption: "Learn2Reg 2026: Medical Image Registration Challenge at MICCAI 2026, Strasbourg" },
-      { type: "image", src: "/screenshots/miccai-challenge/validation-leaderboard.jpg", caption: "Learn2Breath validation leaderboard: alyrraza ranked #4 of 96 teams (combined score 0.99151, Lobar DSC 0.99264, folding 0.11326%)" },
-      { type: "image", src: "/screenshots/miccai-challenge/invitation-email.jpg", caption: "Organizer invitation to present: top-4 finish earns an oral presentation and poster slot at Learn2Reg 2026" },
+      { type: "image", src: "/screenshots/miccai-challenge/invitation-email.jpg", caption: "Organizer invitation to present: an oral presentation and poster slot at Learn2Reg 2026" },
     ],
     details: {
       research: [
@@ -346,7 +355,7 @@ export const projects: Project[] = [
         "Designed a folding repair step that computes a full-resolution Jacobian and locally smooths only voxels inside a small dilation of the folded set, iterating until %NDV drops below the challenge's 0.005% threshold while leaving non-folded regions untouched (mean DSC cost of only -0.00025).",
         "Reached Lobar DSC 0.97276 +/- 0.00394 and %NDV 0.00350 +/- 0.00070 (max 0.00395) on the 10 validation pairs, below the practical-equivalence threshold on every subject, down from a raw 1.33% +/- 1.48% before folding repair.",
         "Reported the method's determinism honestly: no random seeds are drawn anywhere, but TotalSegmentator's cuDNN kernels have a non-guaranteed floating-point summation order, so segmentation output can vary by a small number of voxels between runs, a caveat stated rather than hidden.",
-        "Placed top-4 of 96 teams and 1,137 submissions on the validation-phase leaderboard, rank #3 at the time of the organizers' invitation and #4 as of the latest snapshot, separated from 3rd place by 0.00016 in combined score, invited to give an oral presentation and poster at the Learn2Reg 2026 event at MICCAI 2026 (Strasbourg, October 1) and to submit a full paper to the Journal of Medical Imaging's Special Section on Deformable Image Registration.",
+        "Accepted at Learn2Reg 2026, with an invited oral presentation and poster at the MICCAI 2026 event in Strasbourg (October 1), and an invitation to submit a full paper to the SPIE Journal of Medical Imaging's Special Section on Deformable Image Registration.",
       ],
       engineering: [
         "Packaged the full pipeline into a single Docker image with all TotalSegmentator weights baked in at build time, verified to run end to end with --network=none for the evaluation environment's no-internet constraint.",
@@ -358,10 +367,10 @@ export const projects: Project[] = [
       ],
     },
     results: [
-      { label: "Validation rank", value: "#4 of 96 teams" },
       { label: "Lobar DSC (5 lobes)", value: "0.973" },
       { label: "%NDV (post-repair)", value: "0.0035%" },
       { label: "Runtime per pair (T4)", value: "69.3s" },
+      { label: "Status", value: "Accepted, invited oral" },
     ],
     featured: true,
     order: 7,
@@ -732,52 +741,43 @@ export const projects: Project[] = [
     order: 15,
   },
   {
-    slug: "costsegbnb",
-    title: "CostSegBNB (Ongoing Freelance)",
-    tagline: "A production SaaS platform that turns property photos into IRS-defensible tax depreciation reports, priced at $999 each.",
+    slug: "property-tech-vision-ai",
+    title: "Property-Tech Vision AI Platform (Confidential)",
+    tagline: "A production computer vision and VLM pipeline that turns property photos into structured, customer-ready outputs.",
     descriptions: {
       research:
-        "Diagnosed the true bottleneck in the original single-model detection pipeline (classification accuracy on visually similar fine-grained classes, not detection recall) and redesigned it into a 3-stage architecture: YOLOE-26 for object localization only, SAM2 for surface segmentation, and a Gemini vision-language model for fine-grained classification against the full 312-item taxonomy, with room-aware prompt hints. This replaces a traditional retraining pipeline with a prompt and taxonomy engineering problem, and early validation showed 5 of 6 exact classification matches with zero hallucinations on a benchmark image. Position-based IoU matching de-duplicates detections between the YOLOE and SAM2 passes, and pipeline changes are validated in an isolated model lab before being integrated into the shared production codebase.",
+        "Diagnosed the main accuracy bottleneck in an image-understanding pipeline, fine-grained classification rather than detection recall, and redesigned it into a multi-stage detection, segmentation, and vision-language model pipeline. Early validation reached zero hallucinated outputs on a held-out benchmark. Replaced a planned GPU retraining cycle with an API-driven inference approach instead, trading a self-hosted retraining loop for faster iteration and lower compute cost. Production details are confidential, happy to walk through the architecture in interviews.",
       engineering:
-        "CostSegBNB is a production SaaS platform for real-estate cost segregation: property owners upload photos, and the system detects and classifies depreciable building components against a 312-item taxonomy, prices each item via live market search, classifies it into the correct IRS MACRS recovery period with legal citations, and generates an audit-ready PDF depreciation report, emailed automatically to the client. I own the technical direction end to end, backend architecture, the AI/ML detection pipeline, and the deployment/MLOps strategy, coordinating with a non-technical business stakeholder and a second engineer on the shared production codebase. The FastAPI backend (routers, services, integrations layers) handles Firebase auth with custom cookie-based sessions, Cloudinary media storage, a SerpAPI-backed live pricing engine with no hardcoded price tables, a full IRS Publication 946 MACRS depreciation engine, a fully programmatic ReportLab PDF generator (legal citations, visual evidence appendix, executive summary), and a human-in-the-loop admin correction workflow. The React and Vite frontend is deployed on Vercel.",
+        "A production computer vision and VLM pipeline for a property-tech SaaS platform serving US customers: property photos go in, and the system detects, segments, and classifies their contents through a multi-stage pipeline, turning raw image uploads into structured, customer-ready output end to end. I own the ML pipeline architecture from raw image input through to automated output, shipped via FastAPI and Docker with MLflow model versioning and GitHub Actions CI/CD. Production details are confidential, happy to walk through the architecture in interviews.",
     },
     lenses: ["engineering"],
-    tags: [SWE_TAG, "Computer Vision", "VLM", "FastAPI", "MLOps", "SaaS", "Firebase"],
-    status: ["demo-video"],
+    tags: ["Computer Vision", "VLM", "FastAPI", "MLOps", "SaaS"],
+    status: ["case-study"],
     links: {},
     thumbnail: {
       type: "image",
-      src: "/screenshots/costsegbnb/thumbnail.png",
-      caption: "CostSegBNB overview poster",
+      src: "/screenshots/property-tech-vision-ai/thumbnail.png",
+      caption: "Property-Tech Vision AI Platform overview poster",
     },
-    media: [
-      { type: "video", src: "/videos/costsegbnb-demo.mp4", caption: "Product demo: photo upload to IRS-ready depreciation report" },
-    ],
+    media: [],
     details: {
       research: [
-        "Diagnosed that the original single-model YOLOE classifier's real weakness was fine-grained classification of visually similar classes, not detection localization, by separating concerns instead of patching one monolithic model.",
-        "Redesigned the pipeline into 3 stages: YOLOE-26 for localization only, SAM2 for surface segmentation, and a Gemini VLM for fine-grained classification against a 312-item taxonomy with room-aware prompt hints.",
-        "Chose VLM-based classification over traditional model retraining, betting that a well-prompted general vision-language model would generalize better to a 312-class fine-grained taxonomy than a fine-tuned closed-vocabulary detector, while eliminating the retraining and labeling burden entirely.",
-        "Built position-based IoU matching to de-duplicate detections between the YOLOE and SAM2 passes so the same physical object isn't double-counted.",
-        "Validated the redesign in an isolated model lab decoupled from production, reaching 5 of 6 exact classification matches with zero hallucinations on an early benchmark image before integrating any change into the shared codebase.",
-        "Rejected two more complex alternatives, a visual-prompt reference-image bank and confidence-based detector routing, as over-engineered once evaluated against the simpler VLM-classification approach.",
+        "Diagnosed that the pipeline's real weakness was fine-grained classification of visually similar classes, not detection localization, by separating concerns instead of patching one monolithic model.",
+        "Redesigned a single-model detection pipeline into a multi-stage architecture: localization, segmentation, and vision-language-model-based classification.",
+        "Chose a vision-language-model classification stage over traditional model retraining, trading a closed-vocabulary detector's retraining and labeling burden for a prompt and taxonomy engineering problem instead.",
+        "Built position-based matching to de-duplicate detections between pipeline stages so the same physical object isn't double-counted.",
+        "Validated the redesign in an isolated model lab decoupled from production, reaching zero hallucinated outputs on an early benchmark before integrating any change into the shared codebase.",
+        "Rejected two more complex alternatives as over-engineered once evaluated against the simpler approach actually shipped.",
       ],
       engineering: [
-        "Designed and built the FastAPI backend service layer (auth, image ingestion, pricing, MACRS depreciation math, PDF generation, analytics, admin review) across a routers, services, and integrations architecture.",
-        "Built a custom cookie-based session layer on top of Firebase Authentication, with automatic id/refresh token rotation and role-based access control (admin vs standard user).",
-        "Built a measurement-aware pricing engine (SerpAPI Google Shopping/Search, per-sqft, per-linear-ft, and per-unit strategies, category-based fallback) with no hardcoded price tables, running all price lookups concurrently via asyncio.gather.",
-        "Implemented the official IRS MACRS depreciation engine (Publication 946, Table A-1), computing a full year-by-year schedule and a structure-vs-land basis allocation per report.",
-        "Built a fully programmatic ReportLab PDF generator producing an audit-ready report: cover page, executive summary, itemized asset table, legal citation support (IRC section 168, Rev. Proc. 87-56, case law), and a visual evidence appendix.",
-        "Built a human-in-the-loop admin correction workflow (approve/reject on user-submitted detection corrections) as the foundation for future taxonomy and prompt refinement.",
-        "Own the deployment and MLOps roadmap: moving inference off ad-hoc Vast.ai GPU rental onto a CPU-only production VPS, since the redesigned pipeline's classification step is a hosted Gemini API call rather than a self-hosted model.",
+        "Designed and built the backend service layer, ingestion, processing, structured output generation, and admin review, across a routers, services, and integrations architecture.",
+        "Built a custom session and authentication layer with role-based access control.",
+        "Built a fully programmatic report generator producing a structured, audit-ready output document per customer submission.",
+        "Built a human-in-the-loop admin correction workflow as the foundation for ongoing pipeline refinement.",
+        "Own the deployment and MLOps roadmap for the pipeline's classification stage, which calls a hosted vision-language model rather than a self-hosted model.",
       ],
     },
-    results: [
-      { label: "Early pipeline validation", value: "5/6 matches, 0 hallucinations" },
-      { label: "Detection taxonomy", value: "312 categories" },
-      { label: "Report price point", value: "$999" },
-      { label: "Traditional alternative cost", value: "$2,000-$5,000+" },
-    ],
+    results: [],
     featured: true,
     order: 0,
   },
@@ -928,7 +928,8 @@ export const projects: Project[] = [
   },
 
   // Note: RadGuard, E2E-VarNet, ProgressGAN-CXR, InferBench, PIT-Scorecard appear in
-  // BOTH lenses. CostSegBNB (order 0) is the flagship pitch project, no public repo
-  // yet (ongoing freelance, private codebase). DocDesk is engineering only, no live
-  // demo, container image on GHCR plus a local Docker Compose demo.
+  // BOTH lenses. Property-Tech Vision AI Platform (order 0) is the flagship pitch
+  // project, kept intentionally generic; no public repo, employer confidential.
+  // DocDesk is engineering only, no live demo, container image on GHCR plus a local
+  // Docker Compose demo.
 ];

@@ -64,6 +64,7 @@ export interface Publication {
   citation: string;
   venue: string;
   status: "Accepted" | "Under Review";
+  link?: string;
 }
 
 export interface EducationEntry {

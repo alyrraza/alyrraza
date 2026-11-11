@@ -11,8 +11,8 @@ export const profile: Profile = {
       "Shipping production ML systems across vision, voice, and agentic AI.",
   },
   bio: [
-    "I'm a final-year BSc Computer Science student at FAST-NUCES Faisalabad (graduating 2026) and a freelance AI/ML Engineer since 2023, building production machine learning systems for international clients across computer vision, medical AI, NLP, voice, and agentic workflows, end to end from data and training through deployment and monitoring.",
-    "My work spans two registers: research rigor, multimodal error detection in AI-generated radiology reports, GAN-based disease progression modeling, and a hybrid transformer and CNN framework accepted at ACR 2026, and production engineering, FastAPI services, Kubernetes deployments, MLOps pipelines, and RAG and voice agents shipped for real users. I care about systems that are useful, measurable, and honest about where they fail.",
+    "I'm a final-year BSc Computer Science student at FAST-NUCES Faisalabad (graduating 2026) and a freelance engineer since 2023, building production ML systems and full-stack web products for local and international clients, across computer vision, medical AI, NLP, voice, and agentic workflows, end to end from data and training through deployment and monitoring.",
+    "My work spans two registers: research rigor, multimodal error detection in AI-generated radiology reports, GAN-based disease progression modeling, a co-authored hybrid transformer and CNN abstract accepted at ACR 2026, and a training-free lung CT registration method accepted at Learn2Reg 2026 (MICCAI) with an invited oral presentation, and production engineering: FastAPI services, Kubernetes deployments, MLOps pipelines, and RAG and voice agents shipped for real users. I care about systems that are useful, measurable, and honest about where they fail.",
   ],
   email: "mirzaalirazafsd@gmail.com",
   socials: {
@@ -36,16 +36,18 @@ export const profile: Profile = {
   ],
   publications: [
     {
-      citation: "Khan MM, Raza A, et al. “Generalizable Detection of Cardiac Implantable Electronic Devices Using a Hybrid Transformer and CNN Framework.”",
-      venue: "ACR 2026, American College of Radiology Annual Meeting, Washington DC",
+      citation:
+        "Khan MM, Raza A, Ahmad F, Mansoor A. “Generalizable detection of cardiac implantable devices using a hybrid transformer and convolutional neural network framework.”",
+      venue: "ACR 2026 Annual Meeting, American College of Radiology, Washington DC, May 2026 (abstract and poster)",
       status: "Accepted",
+      link: "https://e732fa66e3fe6db28bf3-86df353d44a6c65fafef6090f322fde2.ssl.cf1.rackcdn.com//3392642-1773940722.pdf",
     },
     {
       citation:
         "Raza A. “Inter-Lobe Boundary Channels and Localised Folding Repair for Expiration to Inspiration Lung CT Registration.”",
-      venue:
-        "Learn2Reg 2026 Challenge, MICCAI 2026, Strasbourg. Top-4 finalist (validation phase); invited oral presentation and poster.",
-      status: "Under Review",
+      venue: "Learn2Reg 2026 Challenge, MICCAI 2026, Strasbourg. Invited oral presentation and poster.",
+      status: "Accepted",
+      link: "https://openreview.net/forum?id=nFNQaSDcO6",
     },
   ],
   service: [

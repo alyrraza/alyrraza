@@ -2,18 +2,27 @@ import { ExperienceEntry } from "@/types";
 
 export const experience: ExperienceEntry[] = [
   {
-    role: "ML Engineer",
+    role: "Machine Learning Engineer",
     org: "HusQuay Solutions",
-    location: "Remote, US-based Client",
-    period: "2024 - Present",
+    location: "Remote, via Crew Innovations, Faisalabad",
+    period: "Dec 2024 - Present",
     bullets: [
-      "Designed end-to-end ML pipelines, preprocessing, training, evaluation, and scalable production deployment via FastAPI and Docker with real-time model performance monitoring.",
-      "Built and deployed a YOLOv8 computer vision system: an inference-optimized REST API, containerized with Docker, GPU deployment on Vast.ai, integrated with a React frontend on Vercel.",
-      "Trained computer vision and classification models for a production AI SaaS platform automating property tax depreciation studies for US clients.",
-      "Integrated open-source detection/segmentation models with third-party VLM/LLM APIs into a unified inference pipeline, replacing planned GPU retraining with an API-driven approach.",
-      "Owned ML pipeline architecture end-to-end, from raw image input to report-ready output, shipping features directly into a live production system.",
-      "Fine-tuned LLMs (LoRA/QLoRA) via HuggingFace PEFT.",
-      "Maintained MLflow experiment tracking and model versioning; automated deployments via CI/CD pipelines using GitHub Actions.",
+      "Built and shipped computer vision and ML features for a production property-tech SaaS platform serving US customers.",
+      "Diagnosed the main accuracy bottleneck in an image-understanding pipeline and redesigned it into a multi-stage detection, segmentation and vision-language model pipeline, improving fine-grained classification with zero hallucinated outputs in early validation.",
+      "Replaced a planned GPU retraining cycle with an API-driven inference approach, cutting iteration time and compute cost.",
+      "Owned the ML pipeline end to end, from raw image upload to automated, customer-ready output in a live production system.",
+      "Shipped via FastAPI and Docker with MLflow model versioning and GitHub Actions CI/CD, working closely with product and engineering teams.",
+    ],
+  },
+  {
+    role: "Full Stack Engineer",
+    org: "Freelance (Self-employed)",
+    location: "Faisalabad, Pakistan · Remote",
+    period: "June 2024 - Present",
+    bullets: [
+      "Built and deployed multiple full-stack websites end to end (design, frontend, CMS integration, deployment) for local and international businesses, including content-heavy platforms with searchable catalogues and admin-managed content.",
+      "Delivered data analysis projects for businesses: scraped and cleaned market data, mapped competitors and demand by area, and turned the results into recommendations on underserved markets.",
+      "Took each project through structured client feedback rounds, from first prototype to final handover.",
     ],
   },
   {

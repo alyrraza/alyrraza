@@ -1,9 +1,22 @@
+import Link from "next/link";
 import { GraduationCap, FileText, Users } from "lucide-react";
 import { profile } from "@/content/profile";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { ScrollReveal } from "@/components/effects/ScrollReveal";
 import { Chip } from "@/components/ui/Chip";
 import { ProfilePhoto } from "./ProfilePhoto";
+
+function renderCitation(citation: string) {
+  return citation.split(/(Raza A)/).map((part, i) =>
+    part === "Raza A" ? (
+      <strong key={i} className="text-text-primary">
+        {part}
+      </strong>
+    ) : (
+      part
+    )
+  );
+}
 
 export function About() {
   return (
@@ -47,7 +60,20 @@ export function About() {
             <div className="space-y-4">
               {profile.publications.map((pub) => (
                 <div key={pub.citation} className="space-y-1.5">
-                  <p className="text-sm text-text-secondary">{pub.citation}</p>
+                  <p className="text-sm text-text-secondary">
+                    {pub.link ? (
+                      <Link
+                        href={pub.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="transition-colors hover:text-accent hover:underline"
+                      >
+                        {renderCitation(pub.citation)}
+                      </Link>
+                    ) : (
+                      renderCitation(pub.citation)
+                    )}
+                  </p>
                   <p className="text-xs text-text-tertiary">{pub.venue}</p>
                   <Chip className={pub.status === "Accepted" ? "text-accent" : undefined}>
                     {pub.status}

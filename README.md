@@ -1,7 +1,8 @@
 # Hi, I'm Ali Raza 👋
 
-**AI/ML Engineer** building production systems across computer vision, LLMs/RAG, and MLOps.
-Final-year BSc CS at FAST-NUCES Faisalabad (2026) · Freelance ML Engineer since 2023, international clients.
+Machine Learning Engineer | Computer Vision, Deep Learning & MLOps | PyTorch, FastAPI, Docker, Kubernetes | ACR 2026 & MICCAI 2026
+
+Final-year BSc CS at FAST-NUCES Faisalabad (2026) · freelance engineer since 2023 building production ML systems and full-stack web products for local and international clients.
 
 [![Portfolio](https://img.shields.io/badge/Portfolio-alyrraza.vercel.app-00e5ff?style=flat-square&logo=vercel&logoColor=white)](https://alyrraza.vercel.app/)
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-0A66C2?style=flat-square&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/ali-raza-0a1282281/)
@@ -15,18 +16,18 @@ Open to AI/ML engineering roles, research collaborations, and PhD opportunities 
 
 ### Currently
 
-- 🔭 Building production computer vision pipelines at **HusQuay Solutions**
+- 🔭 Building production computer vision and ML features at **HusQuay Solutions** (via Crew Innovations)
 - 🏥 Shipping **DocDesk**, a healthcare RAG service with a from-scratch LLM evaluation harness
-- 🏆 Invited to present at **Learn2Reg 2026** (MICCAI), top-4 finalist of 96 teams
+- 🏆 Accepted at **Learn2Reg 2026** (MICCAI), invited oral presentation
 - 📄 Co-author, abstract accepted at **ACR 2026** (American College of Radiology)
 
 ---
 
 ## Selected projects
 
-**[CostSegBNB](https://alyrraza.vercel.app/projects/costsegbnb)** — flagship, ongoing freelance
-Production SaaS that turns property photos into IRS-defensible tax depreciation reports. A 3-stage detection pipeline (YOLOE-26, SAM2, Gemini VLM) classifies against a 312-item taxonomy and prices every item via live market search.
-`FastAPI` `Firebase` `Gemini` `React`
+**[Property-Tech Vision AI Platform](https://alyrraza.vercel.app/projects/property-tech-vision-ai)** - flagship, confidential
+A production computer vision and VLM pipeline that turns property photos into structured, customer-ready outputs for a property-tech SaaS platform serving US customers. Production details are confidential, happy to walk through the architecture in interviews.
+`FastAPI` `Computer Vision` `VLM` `MLOps`
 
 **[RadGuard](https://github.com/alyrraza/RadGuard-Medical-AI)** · [live demo](https://radguard.vercel.app/)
 Catches 4 classes of error in AI-generated chest X-ray reports. BioViL-T + CXR-BERT cross-attention over 74K MIMIC-CXR samples, macro F1 0.66 after root-causing a patient-level data leakage bug.
@@ -48,7 +49,7 @@ Reproduced E2E-VarNet for 4x-accelerated MRI reconstruction and added a checkpoi
 <summary><strong>14 more projects</strong></summary>
 <br>
 
-- **[Learn2Breath (Learn2Reg 2026)](https://alyrraza.vercel.app/projects/miccai-challenge)** — Lung CT registration pipeline with zero trained registration weights, top-4 of 96 teams at MICCAI 2026
+- **[Learn2Breath (Learn2Reg 2026)](https://alyrraza.vercel.app/projects/miccai-challenge)** - Training-free lung CT registration pipeline, accepted at MICCAI 2026 with an invited oral presentation
 - **[InferBench](https://github.com/alyrraza/inference-benchmark-mlops)** — Benchmarked PyTorch, ONNX Runtime, and TensorRT; a Redis cache cut repeat requests 2,377x
 - **[ProgressGAN-CXR](https://github.com/alyrraza/ProgressGAN-CXR)** — Four severity-conditioned GANs simulating COVID-19 chest X-ray progression, benchmarked honestly across four metrics
 - **[CIED Detection](https://github.com/alyrraza/cied-detection-acr2026)** — Hybrid transformer and CNN pipeline for cardiac device detection, accepted as an ePoster at ACR 2026
@@ -108,11 +109,11 @@ Reproduced E2E-VarNet for 4x-accelerated MRI reconstruction and added a checkpoi
 
 ## Research
 
-**Khan MM, Raza A, et al.** "Generalizable Detection of Cardiac Implantable Electronic Devices Using a Hybrid Transformer and CNN Framework"
-ACR 2026 · Abstract Accepted
+**[Khan MM, Raza A, Ahmad F, Mansoor A.](https://e732fa66e3fe6db28bf3-86df353d44a6c65fafef6090f322fde2.ssl.cf1.rackcdn.com//3392642-1773940722.pdf)** "Generalizable detection of cardiac implantable devices using a hybrid transformer and convolutional neural network framework"
+ACR 2026 Annual Meeting, American College of Radiology, Washington DC · Accepted, abstract and poster
 
-**Ali Raza.** "Learn2Breath: An Optimisation-Based Registration Pipeline for Inspiration-Expiration Lung CT"
-Learn2Reg 2026 Challenge, MICCAI 2026 · Top-4 of 96 teams · Oral Presentation & Poster Invite
+**[Raza A.](https://openreview.net/forum?id=nFNQaSDcO6)** "Inter-Lobe Boundary Channels and Localised Folding Repair for Expiration to Inspiration Lung CT Registration"
+Learn2Reg 2026 Challenge, MICCAI 2026, Strasbourg · Accepted, invited oral presentation and poster
 
 ---
 
